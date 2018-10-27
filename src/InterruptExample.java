@@ -1,10 +1,9 @@
+class Thread_3 extends Thread {
+    Thread_3 aT1;
+    private String info;
 
-public class InterruptExample extends Thread {
-
-    private String name;
-
-    public InterruptExample(String name) {
-        this.name = name;
+    public Thread_3(String info) {
+        this.info = info;
     }
 
     public static void sleepForAbit(long sleepTime) {
@@ -17,25 +16,24 @@ public class InterruptExample extends Thread {
     }
 
     public static void main(String args[]) {
+        Thread_3 aT1 = new Thread_3("first");
 
-        InterruptExample aThread = new InterruptExample("aThread");
-        aThread.start();
-        sleepForAbit(100);    // should allow the thread to enger the while loop
-        aThread.interrupt();
-
+        aT1.start();
+        sleepForAbit(100);
+        System.err.println("interrupt 'first'");
+        aT1.interrupt();
     }
 
     public void run() {
-
-        System.err.println(name + " has started!");
-        double x = 1;
-        while (x > 0) {        // forever loop
-            x = x * 2 - x;        // x is constant
-            if (isInterrupted()) {
-                System.err.println(name + "is interrupted");
-                break;
-            }
+        System.out.println(info + " is running");
+        try {
+            sleep(1000000);        // thread has to be here
+        } catch (InterruptedException e) {
+            System.err.println("Interrupted!");
+            if (isInterrupted())
+                System.err.println("yup it's true.");
         }
-        System.err.println(name + " has exited!");
+        System.out.println(info + ": exit run");
+
     }
 }
