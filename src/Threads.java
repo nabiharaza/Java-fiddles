@@ -1,45 +1,23 @@
-class Threads {
-    private static int count = 0;
 
-    public static void add() {
-        count++;
+class Thread_1b implements Runnable {
+
+    int x = 0;
+    private String info;
+
+    public Thread_1b(String info) {
+        this.info = info;
     }
 
-    public static void main(String[] args) {
-
-
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10000; i++) {
-                    System.out.println("One");
-                    add();
-                }
-
+    public static void main(String args[]) {
+        if (args != null) {
+            for (int n = 0; n < args.length; ++n) {
+                new Thread(new Thread_1b("" + n)).start();
             }
-        });
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("TWO");
-                for (int i = 0; i < 10000; i++) {
-                    System.out.println("Two");
-                    add();
-                }
-
-            }
-        });
-        t1.start();
-        t2.start();
-
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+    }
 
-
-        System.out.println(count);
+    public void run() {
+        x = 1;
+        System.out.print(info);
     }
 }
