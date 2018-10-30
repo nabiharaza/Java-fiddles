@@ -1,82 +1,44 @@
-public class SimpleThreads {
+import java.util.Vector;
 
-    // Display a message, preceded by
-    // the name of the current thread
-    static void threadMessage(String message) {
-        String threadName =
-                Thread.currentThread().getName();
-        System.out.format("%s: %s%n",
-                threadName,
-                message);
+class Thread_5 extends Thread {
+    static Vector aVector;
+    Object lol;
+    private String info;
+
+    public Thread_5(String info, Vector aVector) {
+        this.info = info;
+        Thread_5.aVector = aVector;
+        this.lol = "lol";
     }
 
-    public static void main(String args[])
-            throws InterruptedException {
+    public static void main(String args[]) {
+        Vector aVector = new Vector ( );
+        Thread_5 aT5_0 = new Thread_5 ( "first", aVector );
+        Thread_5 aT5_1 = new Thread_5 ( "second", aVector );
 
-        // Delay, in milliseconds before
-        // we interrupt MessageLoop
-        // thread (default one hour).
-        long patience = 1000 * 60 * 60;
-
-        // If command line argument
-        // present, gives patience
-        // in seconds.
-        if (args.length > 0) {
-            try {
-                patience = Long.parseLong(args[0]) * 1000;
-            } catch (NumberFormatException e) {
-                System.err.println("Argument must be an integer.");
-                System.exit(1);
-            }
-        }
-
-        threadMessage("Starting MessageLoop thread");
-        long startTime = System.currentTimeMillis();
-        Thread t = new Thread(new MessageLoop());
-        t.start();
-
-        threadMessage("Waiting for MessageLoop thread to finish");
-        // loop until MessageLoop
-        // thread exits
-        while (t.isAlive()) {
-            threadMessage("Still waiting...");
-            // Wait maximum of 1 second
-            // for MessageLoop thread
-            // to finish.
-            t.join(1000);
-            if (((System.currentTimeMillis() - startTime) > patience)
-                    && t.isAlive()) {
-                threadMessage("Tired of waiting!");
-                t.interrupt();
-                // Shouldn't be long now
-                // -- wait indefinitely
-                t.join();
-            }
-        }
-        threadMessage("Finally!");
+        aT5_0.start ( );
+        aT5_1.start ( );
+//        sleep (2000);
+//        aT5_0.interrupt ();
     }
 
-    private static class MessageLoop
-            implements Runnable {
-        public void run() {
-            String importantInfo[] = {
-                    "Mares eat oats",
-                    "Does eat oats",
-                    "Little lambs eat ivy",
-                    "A kid will eat ivy too"
-            };
+    public void inProtected() {
+        synchronized (lol) {
+            System.err.println ( info + ": is in protected()" );
             try {
-                for (int i = 0;
-                     i < importantInfo.length;
-                     i++) {
-                    // Pause for 4 seconds
-                    Thread.sleep(4000);
-                    // Print a message
-                    threadMessage(importantInfo[i]);
-                }
-            } catch (InterruptedException e) {
-                threadMessage("I wasn't done!");
+//                if ( info.equals("second") )
+//                    sleep(1000);
+//                else
+//                    sleep(1000);
+                System.out.println ( "Runing " + info );
+            } catch (Exception e) {
+                System.err.println ( "Interrupted!" );
             }
+            System.err.println ( info + ": exit run" );
         }
+    }
+
+    public void run() {
+        inProtected ( );
     }
 }
