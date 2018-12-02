@@ -1,4 +1,5 @@
-package client;import compute.Task;
+//package client;
+import Task;
 import java.io.Serializable;
 import java.math.BigDecimal;
 

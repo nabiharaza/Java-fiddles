@@ -1,7 +1,7 @@
-package engine;
+//package engine;
 
-import compute.Compute;
-import compute.Task;
+import Compute;
+import Task;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

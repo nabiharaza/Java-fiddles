@@ -1,6 +1,6 @@
-package compute;
+//package compute;
 
-import compute.Task;
+import Task;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

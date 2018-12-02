@@ -1,6 +1,6 @@
-package client;
+//package client;
 
-import compute.Compute;
+import Compute;
 
 import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
