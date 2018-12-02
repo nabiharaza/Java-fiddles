@@ -9,6 +9,7 @@ public class Server {
         AddC obj = new AddC ();
         Registry registry = LocateRegistry.createRegistry ( 2211 );
         registry.rebind ( "ADD",obj );
-        System.out.println ("Server Started" );
+        System.out.println ("Nabiha's Server Started" );
+
     }
 }
