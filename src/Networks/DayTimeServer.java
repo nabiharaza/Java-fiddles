@@ -52,7 +52,12 @@ public class DayTimeServer extends Thread {
                 System.out.println(connectionToClientSocket.toString());
                 PrintWriter out = new PrintWriter
                     (connectionToClientSocket.getOutputStream (), true);
+
+
                 out.println("It is now: " + new Date());
+
+
+
                 connectionToClientSocket.close();
             }
         } catch(Exception e) {
